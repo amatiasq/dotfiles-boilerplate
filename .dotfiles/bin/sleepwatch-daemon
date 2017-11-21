@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+SOURCE="$HOME/.dotfiles/deps/sleepwatcher_2.2/de.bernhard-baehr.sleepwatcher.plist"
+PLIST="$HOME/Library/LaunchAgents/de.bernhard-baehr.sleepwatcher.plist"
+
+if [ -f "$PLIST" ]; then
+  rm "$PLIST"
+fi
+
+cat "$SOURCE" | sed "s|~|$HOME|g" > "$PLIST"
+
+launchctl unload "$PLIST" 2> /dev/null
+launchctl load "$PLIST"
+launchctl stop "$PLIST"

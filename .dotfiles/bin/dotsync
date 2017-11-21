@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+function add() {
+  FILE="$1"
+
+  while read path; do
+    if [ -d "$path" ] || [ -f "$path" ]; then
+      $DOT add "$path"
+    fi
+  done < <("$HOME/.dotfiles/bin/read-include" "include" "$FILE")
+
+  # Exclude paths with ! in .dotinclude
+  while read path; do
+    if [ -d "$path" ] || [ -f "$path" ]; then
+      $DOT reset "$path"
+    fi
+  done < <("$HOME/.dotfiles/bin/read-include" "exclude" "$FILE")
+}
+
+HOOK="$HOME/.dot/hooks/post-commit"
+INCLUDE="$HOME/.dotfiles/include"
+INCLUDE_DIR="$HOME/.dotfiles/include.d"
+DOT=$($HOME/.dotfiles/bin/command)
+ERRORS=$($DOT pull 2>&1)
+
+if [ $? -ne 0 ]; then
+    echo 'Error running git pull:'
+    echo $ERRORS
+    exit 1
+fi
+
+# Disable post-commit hook
+mv "$HOOK" "$HOOK.bak"
+
+if [ -d "$INCLUDE_DIR" ]; then
+  while read file; do
+    add "$INCLUDE_DIR/$file"
+    $DOT commit -m "$file" > /dev/null
+  done < <(ls $INCLUDE_DIR)
+fi
+
+
+if [ -f "$INCLUDE" ]; then
+  add "$INCLUDE"
+  $DOT commit -am "Sync $(date +%d-%m-%Y) ($USER)" > /dev/null
+fi
+
+# Enable post-commit hook
+mv "$HOOK.bak" "$HOOK"
+
+$DOT push origin master

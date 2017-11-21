@@ -1,0 +1,19 @@
+# Actual dotfiles
+ .bashrc
+ .bash_profile
+ .gitmodules
+ .gitconfig
+
+# VSCode
+ ~/Library/Application Support/Code/User
+
+# Sublime Text 3
+ ~/Library/Application Support/Sublime Text 3/Packages/User
+!~/Library/Application Support/Sublime Text 3/Packages/User/Package Control.cache
+
+# Minecraft
+ ~/Library/Application Support/minecraft/saves/
+
+# Some steam games without steamsync
+ ~/Library/Application Support/Steam/steamapps/common/Kerbal Space Program/saves/
+ ~/Library/Application Support/RimWorld/Saves/

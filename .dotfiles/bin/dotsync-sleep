@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+TMP_FILE=$(mktemp /tmp/abc-script.XXXXXX)
+LOG="$HOME/.dotfiles/logs/dotsync-log.txt"
+ERROR="$HOME/.dotfiles/logs/dotsync-errors.txt"
+VISIBLE_ERROR="$HOME/Desktop/dotsync-errors.txt"
+
+date >> "$LOG"
+$HOME/.dotfiles/bin/dotsync >> "$LOG" 2>> "$TMP_FILE"
+
+if [ $? -ne 0 ]; then
+    date >> "$ERROR"
+    cat "$TMP_FILE" >> "$ERROR"
+    echo '===' >> "$ERROR"
+    cp "$ERROR" "$VISIBLE_ERROR"
+fi
+
+echo '===' >> "$LOG"
+rm "$TMP_FILE"
