@@ -53,12 +53,11 @@ $DOT remote add boilerplate git@github.com:amatiasq/dotfiles-boilerplate
 
 mkdir -p ~/.dotfiles/logs
 
-$DOT submodule update --init --recursive
 $DOT fetch --unshallow > ~/.dotfiles/logs/fetch.txt 2>&1 &
 
 # Install dotsync command
-# mkdir -p $HOME/bin
-# ln -s "$HOME/.dotfiles/bin/dotsync" "$HOME/bin/dotsync"
+mkdir -p $HOME/bin
+ln -s "$HOME/.dotfiles/bin/dotsync" "$HOME/bin/dotsync"
 
 # Set post commit hook to push on commit
 HOOK="$HOME/.dot/hooks/post-commit"
@@ -66,4 +65,4 @@ echo '#!/bin/sh' > $HOOK
 echo 'git push origin master' >> $HOOK
 chmod +x $HOOK
 
-bash "$HOME/.dotfiles/install/start.sh"
+$HOME/.dotfiles/bin/sleepwatch-daemon

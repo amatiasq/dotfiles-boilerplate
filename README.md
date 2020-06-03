@@ -11,16 +11,10 @@ Once you did that you can test it by runing this command in a new computer:
 > NOTE: Remember to change `$GH_USERNAME` with your github username and `$GH_REPO` with your repository name.
 
 ```bash
-curl https://raw.githubusercontent.com/$GH_USERNAME/$GH_REPO/master/.dotfiles/install/init.sh | bash
+curl https://raw.githubusercontent.com/$GH_USERNAME/$GH_REPO/master/.dotfiles/install.sh | bash
 ```
 
 It will try to pull `github.com/$USER/dotfiles` repository. Remember `$USER` is your system's user name.
-
-### Applications
-
-You can define the applications the script should install when invoked for the first time in the [`~/.dotfiles/install/applications.sh`](https://github.com/amatiasq/dotfiles-boilerplate/blob/master/.dotfiles/install/applications.sh).
-
-You also have a file for [brew packages](https://github.com/amatiasq/dotfiles-boilerplate/blob/master/.dotfiles/install/brew.sh) and [npm pacakges](https://github.com/amatiasq/dotfiles-boilerplate/blob/master/.dotfiles/install/node.sh)
 
 ## Configuration
 
