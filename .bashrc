@@ -9,7 +9,6 @@ if [ -d "/usr/local/opt/nvm" ]; then
 fi
 
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
-export DOT=$($HOME/.dotfiles/command)
+export DOT=$($HOME/.dotfiles/bin/command)
 
 alias dot="$DOT"
-
